@@ -20,7 +20,9 @@ Here is a list of various examples for code in languages I'm trying to learn.
 - Javascript
 - Ruby
 - SQL
-
+- C++
+- Go
+- Kotlin
 
 
 > The best we can do is **our** best
