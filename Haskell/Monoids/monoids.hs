@@ -1,0 +1,165 @@
+import Data.Monoid
+
+-- class Monoid a where
+-- -- for all monoids, these functions 
+-- -- exist for them, with different instances 
+-- -- for each one
+--   mempty  :: a
+--   mappend :: a -> a -> a
+--
+--   mconcat :: [a] -> a
+--   mconcat = foldr mappend mempty
+
+-- instance Monoid [a] where
+--   mempty  = []
+--   mappend = (++)
+--
+-- -- | Monoid under addition.
+-- newtype Sum a = Sum { getSum :: a }
+--
+-- -- | Monoid under multiplication.
+-- newtype Product a = Product { getProduct :: a }
+--
+-- instance Num a => Monoid (Sum a) where
+--   mempty = Sum 0
+--   Sum x `mappend` Sum y = Sum (x + y)
+--
+-- instance Num a => Monoid (Product a) where
+--   mempty = Product 1
+--   Product x `mappend` Product y = Product (x * y)
+--
+-- (x <> y) <> z = x <> (y <> z)  -- associativity
+-- mempty <> x = x                -- left identity
+-- x <> mempty = x                -- right identity
+--
+-- instance Bool a => Monoid (Bool a) where
+  -- mempty p = p
+  -- Bool p `mappend` Bool q = Bool (p || q)
+
+-- threeConcat :: [a] -> [a] -> [a] -> [a]
+-- threeConcat a b c = a ++ b ++ c
+--
+-- mthreeConcat :: Monoid m -> m -> m -> m -> m
+-- mthreeConcat a b c = a <> b <> c
+
+
+
+-- -- EXAMPLE:
+-- -- XMonad configuration
+-- -- A ManageHook is a rule, or a combination of rules, for
+-- -- automatically handling specific kinds of windows. It
+-- -- is applied on window creation.
+--
+-- myManageHook :: ManageHook
+-- myManageHook = composeAll
+--     [ manageConkeror
+--     , manageDocs
+--     , manageEmacs
+--     , manageGimp
+--     , manageImages
+--     , manageTerm
+--     , manageTransient
+--     , manageVideo
+--     , manageWeb
+--     , myNSManageHook scratchpads
+--     ]
+--
+-- -- manageEmacs, for instance, makes a duplicate of an Emacs
+-- -- window in workspace 3 and sets its opacity to 90%. It
+-- -- looks like this:
+--
+-- -- liftX lifts a normal X action into a Query (as expected by -->)
+-- -- idHook ensures the proper return type
+-- manageEmacs :: ManageHook
+-- manageEmacs =
+--     className =? "Emacs"
+--     --> (ask >>= doF . \w -> (copyWindow w "3:emacs"))
+--     <+> (ask >>= \w -> liftX (setOpacity w 0.9) >> idHook)
+--
+-- -- The hooks are used as fields of the XMonad configuration,
+-- -- which is passed to the IO action that starts XMonad.
+--
+-- myConfig xmproc = defaultConfig
+--                   { -- Among other fields...
+--                   , manageHook         = myManageHook
+--                   } 
+--
+-- -- idHook, (<+>), composeAll and (-->) are just user-friendly
+-- -- synonyms for monoid operations, defined in the
+-- -- XMonad.ManageHook module thusly:
+--
+-- -- | The identity hook that returns the WindowSet unchanged.
+-- idHook :: Monoid m => m
+-- idHook = mempty
+--
+-- -- | Infix 'mappend'. Compose two 'ManageHook' from right to left.
+-- (<+>) :: Monoid m => m -> m -> m
+-- (<+>) = mappend
+--
+-- -- | Compose the list of 'ManageHook's.
+-- composeAll :: Monoid m => [m] -> m
+-- composeAll = mconcat
+--
+-- -- | @p --> x@.  If @p@ returns 'True', execute the 'ManageHook'.
+-- --
+-- -- > (-->) :: Monoid m => Query Bool -> Query m -> Query m -- a simpler type
+-- (-->) :: (Monad m, Monoid a) => m Bool -> m a -> m a
+-- p --> f = p >>= \b -> if b then f else return mempty
+--
+--
+-- -- MONOID HOMOMORPHISMS
+-- -- Given any two monoids A and B, 
+-- -- a function f :: A -> B is a 
+-- -- monoid homomorphism if it 
+-- -- preserves the monoid structure, 
+-- -- so that: 
+--
+-- f mempty          = mempty
+-- f (x `mappend` y) = f x `mappend` f y
+--
+-- -- In words, f takes 
+-- -- mempty :: A to mempty :: B, 
+-- -- and the result of mappend for A 
+-- -- to the result of mappend for B 
+-- -- (after using f to turn the arguments 
+-- -- to mappend into B values). 
+-- --
+-- -- As an example, length is a monoid 
+-- -- homomorphism between ([a],++) and (Int,+):
+--
+-- length []         = 0
+-- length (xs ++ ys) = length xs + length ys
+
+
+-- -- EXAMPLE
+-- -- in the Google Protocol Buffers API (in C++):
+-- 
+-- MyMessage message;
+-- message.ParseFromString(str1 + str2);
+-- 
+-- -- is equivalent to:
+--
+-- MyMessage message, message2;
+-- message.ParseFromString(str1);
+-- message2.ParseFromString(str2);
+-- message.MergeFrom(message2);
+--
+-- -- ... means that ParseFromString is a 
+-- -- monoid homomorphism. In a hypothetical 
+-- -- Haskell implementation, the following 
+-- -- equations would hold:
+--
+-- parse :: String -> Message
+-- -- these are just equations, not actual code.
+-- parse []         = mempty
+-- parse (xs ++ ys) = parse xs `mergeFrom` parse ys
+-- -- (They wouldn't hold perfectly, as parsing might fail, but roughly so.)
+--
+-- Recognising a homomorphism can lead to 
+-- useful refactorings. For instance, if 
+-- mergeFrom turned out to be an expensive 
+-- operation it might be advantageous in 
+-- terms of performance to concatenate the 
+-- strings before parsing them. `parse` 
+-- being a monoid homomorphism would then 
+-- guarantee the same results would be obtained. 

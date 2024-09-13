@@ -1,0 +1,120 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+
+struct Node 
+{
+	int value;
+	struct Node* next_node;
+	struct Node* prev_node;
+};
+
+struct Linked_List 
+{
+	struct Node* head;
+	struct Node* tail;
+};
+
+int length(struct Linked_List X)
+{
+	int sum = 0;
+	struct Node* i;
+
+	i = X.head;
+
+	while (i != NULL)
+	{
+		i = i->next_node;
+		sum++;
+	}
+	return sum;
+}
+
+struct Linked_List append(struct Linked_List X, struct Node* y)
+{
+
+	if(X.tail) 
+	{
+		X.tail->next_node = y;
+		y->prev_node = X.tail;
+		X.tail = y;
+		y->next_node = NULL;
+	}
+	else 
+	{
+		X.tail = X.head = y;
+		y->next_node = y->prev_node = NULL;
+	}
+
+	return X;
+}
+
+struct Node* indexOf(struct Linked_List X, int index)
+{
+	int counter = 0;
+	struct Node* i = X.head;
+	printf("made i");
+
+	while (counter <= index && i != NULL)
+	{
+		printf("got to the while statement");
+
+		i = i->next_node;
+		counter++;
+	}
+
+	return i;
+}
+
+struct Linked_List addNode(struct Linked_List X, int index, struct Node* y)
+{
+	struct Node* node0 = indexOf(X, index);
+	struct Node* nodeb = indexOf(X, index - 1);
+	int counter = index;
+
+	if (index < 0 || index > length(X) - 1)
+	{
+		printf("Out of Bounds Exception");
+		return X;
+	}
+	else
+	{
+		nodeb ->next_node = y;
+		y     ->prev_node = nodeb;
+		y     ->next_node = node0;
+		node0 ->next_node = y;
+
+	}
+
+	return X;
+}
+
+int main ()
+{
+	printf("init");
+	struct Linked_List ABC = {NULL, NULL};
+	
+	struct Node* A = (struct Node*)malloc(sizeof(struct Node));
+		A->value = 1;
+		A->next_node = NULL;
+		A->prev_node = NULL;
+	
+
+	ABC.head = ABC.tail = A;
+
+	struct Node* B = (struct Node*)malloc(sizeof(struct Node));
+		B->value = 2;
+		B->next_node = NULL;
+		B->prev_node = A;
+
+	ABC = append(ABC, B);
+
+	printf("hihihi");
+	printf("%d\n", indexOf(ABC, 1)->value);
+
+	free(A);
+
+	free(B);
+
+	return 0;
+}

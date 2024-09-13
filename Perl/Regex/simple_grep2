@@ -1,0 +1,10 @@
+#!/usr/bin/env perl
+
+# match: {/}{0-inf word chars}{maybe a /}{end of string}
+if (shift =~ /(\/)(\w*)(\/?)\z/) {
+	print "1";
+}
+else {
+	print "0";
+}
+

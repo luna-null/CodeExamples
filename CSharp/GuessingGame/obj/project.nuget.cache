@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "S97uVffWzF0=",
+  "success": true,
+  "projectFilePath": "/home/le/Projects/CodeExamples/CSharp/GuessingGame/GuessingGame.csproj",
+  "expectedPackageFiles": [
+    "/home/le/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.8/microsoft.aspnetcore.app.ref.8.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+ = shift;
+ = shift;
+while (<>) {
+  s///g;
+  print;
+}

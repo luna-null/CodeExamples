@@ -1,0 +1,6 @@
+{
+	[
+	"directory": "/home/le/Projects/CodeExamples/C/lib", "file": "lowlevelmath.c", "output": "/tmp/lowlevelmath-7501cd.o", "arguments": ["/usr/bin/clang-18", "-xc", "lowlevelmath.c", "-o", "/tmp/lowlevelmath-7501cd.o", "-I", "/home/le/Projects/CodeExamples/C/lib", "-dumpdir", "code-", "--target=x86_64-pc-linux-gnu"],
+ 
+	"directory": "/home/le/Projects/CodeExamples/C/lib", "file": "code.c", "output": "/tmp/code-432e94.o", "arguments": ["/usr/bin/clang-18", "-xc", "code.c", "-o", "/tmp/code-432e94.o", "-I", "/home/le/Projects/CodeExamples/C/lib", "-dumpdir", "code-", "--target=x86_64-pc-linux-gnu"]
+}
