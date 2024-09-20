@@ -10,7 +10,6 @@ def testGuess(guess: int, actual: int) -> int:
     else:
         return 0
 
-
 def main() -> int:
     max = int(input("Choose max from 1: "))
     actual = random.randint(1, max)

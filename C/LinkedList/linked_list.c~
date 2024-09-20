@@ -99,7 +99,7 @@ int main()
 	struct Node B = { 2, &A, NULL};
 
 
-	struct Linked_List ABC = { .head = &A, .tail = &B, length = 2 };
+	struct Linked_List ABC = { .head = &A, .tail = &B };
 
 	printf("%d", size(ABC));
 	return 0;
