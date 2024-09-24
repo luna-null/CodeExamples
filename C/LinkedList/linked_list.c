@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
 
 struct Node 
@@ -20,11 +19,7 @@ struct Linked_List
 int size(struct Linked_List list)
 {
 	int counter = 0;
-	struct Node* inode = NULL;
-	if (list.head != NULL) {
-		struct Node* inode = list.head;
-		counter++;
-	}
+	struct Node* inode = list.head;
 	while (inode != NULL) {
 		inode = inode->next_node;
 		counter++;
@@ -96,11 +91,12 @@ struct Node addAtIndex(struct Node* new_node, struct Node* node_in_list, int* ne
 int main()
 {
 	struct Node A = { 1, NULL, NULL};
-	struct Node B = { 2, &A, NULL};
+	struct Node B = { 2, NULL, &A};
+	A.next_node = &B;
 
 
-	struct Linked_List ABC = { .head = &A, .tail = &B, length = 2 };
+	struct Linked_List ABC = { .head = &A, .tail = &B};
 
-	printf("%d", size(ABC));
+	printf("%d\n", size(ABC));
 	return 0;
 }

@@ -1,0 +1,1 @@
+/home/le/Projects/CodeExamples/Rust/my-project/target/debug/libmy_project.rlib: /home/le/Projects/CodeExamples/Rust/my-project/src/front_of_house/hosting.rs /home/le/Projects/CodeExamples/Rust/my-project/src/front_of_house/serving.rs /home/le/Projects/CodeExamples/Rust/my-project/src/front_of_house.rs /home/le/Projects/CodeExamples/Rust/my-project/src/lib.rs
