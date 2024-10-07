@@ -91,7 +91,7 @@ struct Pair<T>
 
 impl<T> Pair<T>
 {
-    fn new(x: T, y: T) -> Self
+    fn _new(x: T, y: T) -> Self
     {
         Self { x, y }
     }

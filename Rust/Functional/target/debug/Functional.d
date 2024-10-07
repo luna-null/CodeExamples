@@ -1,0 +1,1 @@
+/home/le/Projects/CodeExamples/Rust/Functional/target/debug/Functional: /home/le/Projects/CodeExamples/Rust/Functional/src/closure.rs /home/le/Projects/CodeExamples/Rust/Functional/src/iterators.rs /home/le/Projects/CodeExamples/Rust/Functional/src/lib.rs /home/le/Projects/CodeExamples/Rust/Functional/src/main.rs

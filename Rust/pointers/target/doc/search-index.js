@@ -1,0 +1,4 @@
+var searchIndex = new Map(JSON.parse('[["pointers",{"t":"FKNNNNNMNNNN","n":["LimitTracker","Messenger","borrow","borrow_mut","from","into","new","send","set_value","try_from","try_into","type_id"],"q":[[0,"pointers"],[12,"pointers::refcell"],[13,"core::result"],[14,"core::any"]],"i":"``h0000j1111","f":"``{b{{b{c}}}{}}{{{b{d}}}{{b{dc}}}{}}{cc{}}{{}c{}}{{{b{c}}f}{{h{c}}}j}{{{b{j}}{b{l}}}n}{{{b{d{h{c}}}}f}nj}{c{{A`{e}}}{}{}}{{}{{A`{c}}}{}}{bAb}","D":"d","p":[[1,"reference"],[0,"mut"],[1,"usize"],[5,"LimitTracker",0,12],[10,"Messenger",0,12],[1,"str"],[1,"unit"],[6,"Result",13],[5,"TypeId",14]],"r":[[0,12],[1,12]],"b":[],"c":"OjAAAAAAAAA=","e":"OzAAAAEAAAoAAgAAAAQABwAFAA=="}]]'));
+if (typeof exports !== 'undefined') exports.searchIndex = searchIndex;
+else if (window.initSearch) window.initSearch(searchIndex);
+//{"start":39,"fragment_lengths":[641]}

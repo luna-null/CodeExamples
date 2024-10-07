@@ -1,0 +1,1 @@
+/home/le/Projects/CodeExamples/Rust/advanced_rust/src/hello_macro/src/hello_macro_derive/target/debug/libhello_macro_derive.so: /home/le/Projects/CodeExamples/Rust/advanced_rust/src/hello_macro/src/hello_macro_derive/src/lib.rs

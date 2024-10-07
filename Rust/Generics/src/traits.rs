@@ -2,7 +2,7 @@ use crate::aggregator::{NewsArticle, Summary, Tweet};
 
 pub(crate) fn traits()
 {
-    let tweet = Tweet {
+    let _tweet = Tweet {
         username: String::from("horse_ebooks"),
         content: String::from(
             "of course, as you probably already know, people",
@@ -22,5 +22,5 @@ pub(crate) fn traits()
     };
     println!("New article available! {}", article.summarize());
 
-    let s = 3.to_string();
+    let _s = 3.to_string();
 }
