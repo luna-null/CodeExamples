@@ -1,59 +1,44 @@
 {
-  description = "A description about my executable";
+  description = ""; # Add description
+
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
   };
-  
-  outputs = inputs:
-    let
-      overlay = final: prev: {
-        haskell = prev.haskell // {
-          packageOverrides = hfinal: hprev:
-            prev.haskell.packageOverrides hfinal hprev // {
-              TheNameOfMyExecutable = hfinal.callCabal2nix "TheNameOfMyExecutable" ./. { };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem
+      (system:
+        let pkgs = nixpkgs.legacyPackages.${system}.pkgsMusl;
+            haskellPackages = pkgs.haskell.packages.ghc928;
+            packageName = ""; # Add package name
+            jailbreakUnbreak = pkg: pkgs.haskell.lib.doJailbreak (pkg.overrideAttrs (_: { meta = { }; }));
+            inherit (pkgs.haskell.lib) appendConfigureFlags justStaticExecutables;
+            mypackage = haskellPackages.callCabal2nix packageName self rec {
             };
+        in
+        {
+          packages.${packageName} = pkgs.haskell.lib.overrideCabal mypackage (old: {
+            enableSharedExecutables = false;
+            enableSharedLibraries = false;
+            configureFlags =     [
+                  "--ghc-option=-optl=-static"
+                  "--extra-lib-dirs=${pkgs.gmp6.override { withStatic = true; }}/lib"
+                  "--extra-lib-dirs=${pkgs.zlib.static}/lib"
+                  "--extra-lib-dirs=${pkgs.libffi.overrideAttrs (old: { dontDisableStatic = true; })}/lib"
+                  "--extra-lib-dirs=${pkgs.ncurses.override { enableStatic = true; }}/lib"
+            ];
+          });
+
+          defaultPackage = self.packages.${system}.${packageName};
+          devShell = pkgs.mkShell {
+            buildInputs = with haskellPackages; [
+              haskell-language-server
+              cabal-install
+              cabal2nix
+            ] ++ [ pkgs.zlib ];
+            inputsFrom = builtins.attrValues self.packages.${system};
           };
-               OnCallComp = final.haskell.lib.compose.justStaticExecutables final.haskellPackages.TheNameOfMyExecutable;
-  };
-  perSystem = system:
-    let
-      pkgs = import inputs.nixpkgs { inherit system; overlays = [ overlay ]; config = { allowUnfree = true; };};
-    in
-    {
-       devShell = pkgs.haskellPackages.shellFor {
-         withHoogle = true;
-         packages = p: [ p.OnCallComp];
-  
-         nativeBuildInputs = with pkgs.haskellPackages; [
-           cabal-install
-#          haskell-language-server
-           hlint
-           ormolu
-           ghcid
- #             pkgs.bashInteractive
- #             pkgs.zlib
- #             (pkgs.vscode-with-extensions.override {
- #             vscode = pkgs.vscodium;
- #             vscodeExtensions = with pkgs.vscode-extensions; [
- #                  asvetliakov.vscode-neovim
- #                  dracula-theme.theme-dracula
- #                  haskell.haskell
- #                  jnoortheen.nix-ide
- #                  justusadam.language-haskell
-
- #                  mkhl.direnv
- #              ];  
- #             }
-         ]; 
-   };
-   defaultPackage = pkgs.TheNameOfMyExecutable;
- };
- in
-   { inherit overlay; } // inputs.flake-utils.lib.eachSystem [ "x86_64-linux" ] perSystem;
-  
+        }
+      );
 }
-

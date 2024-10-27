@@ -5,7 +5,7 @@ import(
 )
 
 
-func selection_sort(array []int) ([]int) {
+func SelectionSort(array []int) ([]int) {
     sorted := make([]int, len(array))
     for i := 0; i < len(sorted); i++ {
         var min int = array[i]
@@ -25,7 +25,7 @@ func selection_sort(array []int) ([]int) {
     return sorted
 }
 
-func insertion_sort(array []int) []int {
+func InsertionSort(array []int) []int {
 
     for i := 0; i < len(array); i++ {
         for j := i; j > 0; j-- {
@@ -38,7 +38,7 @@ func insertion_sort(array []int) []int {
 }
 
 
-func bubble_sort(array []int) []int {
+func BubbleSort(array []int) []int {
     for i := 0; i < len(array); i++ {
         for j := 0; j < len(array) - 1; j++ {
             if array[j] > array[j+1] {
@@ -49,7 +49,7 @@ func bubble_sort(array []int) []int {
     return array
 }
 
-func quick_sort(array []int) []int {
+func QuickSort(array []int) []int {
     if len(array) <= 1 {
         return array
     }
@@ -62,43 +62,44 @@ func quick_sort(array []int) []int {
             right = append(right, array[i])
         }
     }
-    left = quick_sort(left)
-    right = quick_sort(right)
+    left = QuickSort(left)
+    right = QuickSort(right)
     return append(append(left, pivot), right...)
 }
 
-func merge_sort(array []int) []int {
+func MergeSort(array []int) []int {
     if len(array) <= 1 {
         return array
     }
     var merged []int
-    var left, right []int = merge_sort(array[:(len(array)/2)]), merge_sort(array[(len(array)/2+1):])
+    var left, right []int = MergeSort(array[:(len(array)/2)]), MergeSort(array[(len(array)/2+1):])
     for i := 0; i < max(len(left), len(right)); i++ {
         
     }
-    return array
+    merged = append(merged, left...)
+    return append(merged, right...)
 }
-func bogo_sort(array []int) []int {
-    for !is_sorted(array) {
-        shuffle(array)
+func BogoSort(array []int) []int {
+    for !IsSorted(array) {
+        Shuffle(array)
     }
     return array
 }
 
-func bogobogo_sort(array []int) []int {
+func BogobogoSort(array []int) []int {
     if len(array) == 1 {
         return array
     }
-    bogobogo_sort(array[:(len(array)-1)])
+    BogobogoSort(array[:(len(array)-1)])
 
-    if !is_sorted(array) {
-        shuffle(array)
-        return bogobogo_sort(array)
+    if !IsSorted(array) {
+        Shuffle(array)
+        return BogobogoSort(array)
     }
     return array
 }
 
-func stalin_sort(array []int) []int {
+func StalinSort(array []int) []int {
     if len(array) == 0 {
         return array
     }
@@ -116,7 +117,7 @@ func swap(array []int, i int, j int) []int {
     return array
 }
 
-func is_sorted(array []int) bool {
+func IsSorted(array []int) bool {
     for i := 0; i < len(array) - 1; i++ {
         if array[i] > array[i + 1] {
             return false
@@ -125,7 +126,7 @@ func is_sorted(array []int) bool {
     return true
 }
 
-func shuffle(array []int) {
+func Shuffle(array []int) {
     r := rand.New(rand.NewSource(time.Now().UnixNano()))
     for i := 0; i < len(array); i++ {
         j := r.Intn(len(array))

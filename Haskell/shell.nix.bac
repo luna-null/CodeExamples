@@ -1,0 +1,20 @@
+with (import <nixpkgs> {});
+
+stdenv.mkDerivation {
+
+  name = "myEnv";
+
+  buildInputs = [
+    glpk 
+    pcre 
+    ghc
+    stack
+  ];
+
+  STACK_IN_NIX_EXTRA_ARGS
+      = " --extra-lib-dirs=${glpk}/lib" 
+      + " --extra-include-dirs=${glpk}/include" 
+      + " --extra-lib-dirs=${pcre}/lib" 
+      + " --extra-include-dirs=${pcre}/include"
+  ;
+}
