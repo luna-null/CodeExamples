@@ -1,0 +1,1 @@
+/home/le/Projects/CodeExamples/Rust/lists/target/debug/liblists.rlib: /home/le/Projects/CodeExamples/Rust/lists/src/first.rs /home/le/Projects/CodeExamples/Rust/lists/src/fourth.rs /home/le/Projects/CodeExamples/Rust/lists/src/lib.rs /home/le/Projects/CodeExamples/Rust/lists/src/second.rs /home/le/Projects/CodeExamples/Rust/lists/src/third.rs

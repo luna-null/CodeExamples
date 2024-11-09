@@ -1,16 +1,33 @@
 #include <iostream>
 #include <ostream>
-struct TreeNode {
-      int val;
-      TreeNode *left;
-      TreeNode *right;
-      TreeNode() : val(0), left(nullptr), right(nullptr) {}
-      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+#include <vector>
+#include <unordered_map>
+
+struct ListNode {
+  int val;
+  ListNode *next;
+  ListNode() : val(0), next(nullptr) {}
+  ListNode(int x) : val(x), next(nullptr) {}
+  ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
-int main() {
-    struct TreeNode root = TreeNode(1);
+int main() {}
 
-    std::cout << root.val << std::endl;
-
+ListNode *reverseList(ListNode *head) {
+  std::vector<ListNode *> list = {head};
+  while (head->next != NULL) {
+    head = head->next;
+    list.insert(list.begin(), head);
+  }
+  int i = 0;
+  std::string letters = "a";
+  letters.append("b");
+  head = list[i];
+  ListNode *iter = head->next;
+  while (i < size(list)) {
+    head->next = iter;
+    head = head->next;
+    i++;
+    iter = list[i];
+  }
+  return list[0];
 }

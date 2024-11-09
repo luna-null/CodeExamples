@@ -1,21 +1,37 @@
-use std::thread;
-use std::time::Duration;
+use std::{collections::HashSet, hash::Hash, rc::Rc, str::Bytes};
+pub struct ListNode
+{
+    pub val: i32,
+    pub next: Option<Box<ListNode>>,
+}
+
+impl ListNode
+{
+    #[inline]
+    fn new(val: i32) -> Self
+    {
+        ListNode { next: None, val }
+    }
+}
 
 fn main() {
-    // Spawn a thread that prints to stdout
-    let handle = thread::spawn(|| {
-        for i in 1..=5 {
-            println!("Thread 1: {}", i);
-            thread::sleep(Duration::from_millis(500));
-        }
-    });
+    let mut s: String = "III".to_string();
 
-    // In the main thread, print to stdout
-    for i in 1..=5 {
-        println!("Main Thread: {}", i);
-        thread::sleep(Duration::from_millis(300));
+    s.push_str("1");
+
+    let char_l: char = 'a';
+
+    s.push_str(&char_l);
+}
+
+pub fn roman_to_int(s: String) -> i32 {
+    
+    let mut sum = 0;
+    let mut acc: String = "".to_string();
+    let mut prev: String = "".to_string();
+    for char in s.chars().take(2) {
+        
     }
 
-    // Wait for the spawned thread to finish
-    handle.join().unwrap();
+    sum
 }
